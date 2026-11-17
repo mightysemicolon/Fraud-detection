@@ -42,18 +42,17 @@ Reconstruction error on the test set (mean and std over 6 seeds):
 | Model | PR AUC | ROC AUC | Recall |
 | --- | --- | --- | --- |
 | PCA | 0.0802 | 0.5085 | 0.0093 |
-| AE | 0.0817 ± 0.0004 | 0.5156 ± 0.0022 | 0.0088 ± 0.0009 |
-| VAE (kl_weight = 0.001) | 0.0819 ± 0.0004 | 0.5165 ± 0.0016 | 0.0082 ± 0.0006 |
+| AE | 0.0817 ± 0.0002 | 0.5154 ± 0.0013 | 0.0085 ± 0.0007 |
+| VAE (kl_weight = 0.001) | 0.0818 ± 0.0004 | 0.5158 ± 0.0021 | 0.0091 ± 0.0015 |
 
 A random score has PR AUC about 0.0807 on this test set, because 8.07 percent of the rows are positive.
 
 ## What I found
 
 * The classifiers have 92 percent accuracy but they find almost none of the positive rows. Random Forest is the same as a model that always says normal.
-* AE and VAE are not different from each other. The difference between them is smaller than the difference between two seeds of the same model. With one seed only, either of them can look better (in seed 0 the VAE is ahead, in seed 1 the AE).
+* AE and VAE are not different from each other. The difference between them is within the seed-to-seed variation. With one seed only, either of them can look better (in seed 0 the VAE is ahead, in seed 2 the AE).
 * Both of them are very close to a random score. The positive rows of this dataset do not look different from the normal rows, so their reconstruction error is not larger.
-* With the default `kl_weight = 1.0` the VAE gave the same PR AUC (0.0790) for every seed. The KL term was too strong and the model ignored its input. With `kl_weight = 0.001` this problem was solved.
-* Training on GPU is not exactly repeatable. The same seed gave slightly different numbers in two runs.
+* With the default `kl_weight = 1.0` the VAE gave the same PR AUC (0.0790) for every seed. The KL term was too strong and the encoder gave almost the same mean for every row (std of the mean about 1e-10), so the model ignored its input (posterior collapse). With `kl_weight = 0.001` this problem was solved.
 
 ## Requirements
 
