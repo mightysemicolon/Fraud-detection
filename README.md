@@ -14,7 +14,7 @@ This is a re-implementation of an earlier project of mine. In the first version 
 * each row is a loan application
 * `TARGET = 1` is the positive class (24,825 rows, 8.07 percent)
 
-The dataset is not in this repository. Download it from Kaggle and put `application_data.csv` next to the notebook.
+The dataset is not in this repository because it is too large for GitHub. Download it from Kaggle: https://www.kaggle.com/datasets/mishra5001/credit-card and put `application_data.csv` next to the notebook.
 
 ## Steps
 
